@@ -1,0 +1,5 @@
+{
+  "debug": true,
+  "database": "/data/toxy_vulnerable_mcp.sqlite",
+  "api_key": "sandbox_config_key_not_for_reuse"
+}
