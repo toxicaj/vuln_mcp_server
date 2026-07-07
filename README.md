@@ -272,6 +272,33 @@ curl http://localhost:8000/mcp \
   -d '{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"list_users","arguments":{}}}'
 ```
 
+---
+
+## Directory map
+
+```
+vuln_mcp_server/
+│
+├─ docker-compose.yml      # One-command lab spin-up
+├─ Dockerfile              # Root-user image (intentional)
+├─ lab-data/               # Writable practice files
+├─ secrets/                # Fake credentials for file-read labs
+│
+└─ toxy_vulnerable_mcp/
+   ├─ server.py            # MCP entry + transport launcher
+   ├─ http_app.py          # HTTP wrapper + Basic Auth middleware
+   ├─ auth.py              # admin:admin validator
+   ├─ database.py          # SQLite seed data
+   ├─ data.py              # Mock notes, users, logs
+   └─ tools/
+      ├─ unauth_tools.py
+      ├─ auth_tools.py
+      ├─ file_tools.py
+      ├─ ssrf_tools.py
+      └─ sqli_tools.py
+```
+
+---
 
 ## Logging & debugging
 

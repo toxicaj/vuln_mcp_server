@@ -1,0 +1,27 @@
+services:
+  toxy-vulnerable-mcp:
+    build: .
+    container_name: toxy-vulnerable-mcp-server
+    environment:
+      APP_ENV: training
+      DEBUG: "true"
+      LOG_LEVEL: DEBUG
+      MCP_HOST: 0.0.0.0
+      MCP_PORT: "8000"
+      MCP_TRANSPORT: streamable-http
+      DATABASE_PATH: /data/toxy_vulnerable_mcp.sqlite
+      TRAINING_SECRET: compose_env_value_visible_to_system_info
+    ports:
+      - "8000:8000"
+    volumes:
+      # FLAW: read-write bind mounts expand what filesystem tools can touch.
+      # Keep these mappings on developer machines and classroom VMs only.
+      - ./lab-data:/lab-data:rw
+      - ./secrets:/app/secrets:rw
+      - toxy-vulnerable-mcp-db:/data:rw
+    privileged: false
+    user: "0:0"
+    read_only: false
+
+volumes:
+  toxy-vulnerable-mcp-db:
